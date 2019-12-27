@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+
 const router = require('./router')
 
 const app = express()
@@ -17,6 +19,13 @@ app.engine('html', require('express-art-template'))
 // 配置解析表单 POST 请求体插件（注意：一定要在 app.use(router) 之前）
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// 配置 express-session
+app.use(session({
+  secret: 'hello world',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // 挂载路由
 app.use(router)
