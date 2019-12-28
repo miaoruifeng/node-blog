@@ -24,7 +24,7 @@ router.get('/login', (req, res) => {
 /**
  * 处理登陆请求
  */
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   // 1. 获取表单数据
   // 2. 查询数据库用户名密码是否正确
   // 3. 发送响应数据
@@ -52,10 +52,11 @@ router.post('/login', (req, res) => {
         })
       })
   } catch (err) {
-    res.status(500).json({
-      err_code: 500,
-      message: err.message
-    })
+    // res.status(500).json({
+    //   err_code: 500,
+    //   message: err.message
+    // })
+    next(err)
   }
 })
 
@@ -69,7 +70,7 @@ router.get('/register', (req, res) => {
 /**
  * 处理注册请求
  */
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
   // 1. 获取表单提交的数据
   // 2. 操作数据库
   // 3. 发送响应
@@ -108,10 +109,11 @@ router.post('/register', async (req, res) => {
       message: '注册成功'
     })
   } catch (err) {
-    res.status(500).json({
-      err_code: 500,
-      message: err.message
-    })
+    // res.status(500).json({
+    //   err_code: 500,
+    //   message: err.message
+    // })
+    next(err)
   }
 })
 

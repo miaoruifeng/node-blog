@@ -30,6 +30,19 @@ app.use(session({
 // 挂载路由
 app.use(router)
 
+// 404
+app.use((req, res) => {
+  res.render('404.html')
+})
+
+// 配置全局错误处理中间件
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    err_code: 500,
+    message: err.message
+  })
+})
+
 // 监听端口 启动服务
 app.listen(port, () => {
   console.log(`Server is running at http://127.0.0.1:${port}`)
